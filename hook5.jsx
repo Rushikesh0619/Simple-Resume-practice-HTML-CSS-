@@ -6,23 +6,28 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // useEffect to fetch data from the JSONPlaceholder API
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
+    // Function to fetch data from the JSONPlaceholder API
+    const fetchData = () => {
+      return fetch('https://jsonplaceholder.typicode.com/posts')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+          return response.json();
+        })
+        .then((result) => {
+          setData(result);
+        })
+        .catch((error) => {
+          setError(error.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     };
 
+    // Call the fetchData function
     fetchData();
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
