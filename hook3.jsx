@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const ListItem = ({ item }) => {
-  // Memoized rendering function for each item
-  const renderItem = useCallback(() => {
+const List = () => {
+  const [items, setItems] = useState([]);
+
+  const ListItem = useCallback(({ item }) => {
     console.log(`Rendering item: ${item.id}`);
     return (
       <div>
@@ -10,13 +11,7 @@ const ListItem = ({ item }) => {
         <p>{item.body}</p>
       </div>
     );
-  }, [item]);
-
-  return renderItem();
-};
-
-const List = () => {
-  const [items, setItems] = useState([]);
+  }, []);
 
   useEffect(() => {
     // Fetch data from a public API
