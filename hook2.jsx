@@ -32,7 +32,12 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if all inputs are valid before submitting
+    // Validate all inputs
+    validateName();
+    validateEmail();
+    validatePassword();
+
+    // Check if any errors exist before submitting
     if (nameError || emailError || passwordError) {
       alert('Please fix the form errors before submitting.');
     } else {
@@ -45,19 +50,19 @@ const Form = () => {
     <form onSubmit={handleSubmit}>
       <div>
         <label>Name:</label>
-        <input type="text" ref={nameRef} onBlur={validateName} />
+        <input type="text" ref={nameRef} onChange={validateName} />
         <span style={{ color: 'red' }}>{nameError}</span>
       </div>
 
       <div>
         <label>Email:</label>
-        <input type="text" ref={emailRef} onBlur={validateEmail} />
+        <input type="text" ref={emailRef} onChange={validateEmail} />
         <span style={{ color: 'red' }}>{emailError}</span>
       </div>
 
       <div>
         <label>Password:</label>
-        <input type="password" ref={passwordRef} onBlur={validatePassword} />
+        <input type="password" ref={passwordRef} onChange={validatePassword} />
         <span style={{ color: 'red' }}>{passwordError}</span>
       </div>
 
